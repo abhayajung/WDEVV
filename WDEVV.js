@@ -1,19 +1,49 @@
-function SOLVE() {
-  var a = parseInt(document.getElementById("tb1").value);
-  var b = parseInt(document.getElementById("tb2").value);
-  var c = parseInt(document.getElementById("tb3").value);
+const compChoiceDisplay = document.getElementById("comp-choice");
+const userChoiceDisplay = document.getElementById("user-choice");
+const resultDisplay = document.getElementById("result");
+const possibleChoice = document.querySelectorAll("button");
 
-  switch (c) {
-    case 1:
-      alert("sum is " + (a + b));
-      break;
-    case 2:
-      alert("prodcut is " + a * b);
-      break;
-    case 3:
-      alert("average is " + (a + b) / 2);
-      break;
-    default:
-      alert("Wrong choice");
-  }
+let userChoice;
+let compChoice;
+let result;
+
+possibleChoice.forEach((possibleChoice) =>
+  possibleChoice.addEventListener("click", (e) => {
+    userChoice = e.target.id;
+    userChoiceDisplay.innerHTML = userChoice;
+
+    generateCompChoice();
+    getResults();
+  })
+);
+
+function generateCompChoice() {
+  const randomNum = Math.floor(Math.random() * 3) + 1;
+  console.log(randomNum);
+  if (randomNum === 1) compChoice = "Rock";
+
+  if (randomNum === 2) compChoice = "Paper";
+
+  if (randomNum === 3) compChoice = "Scissors";
+
+  compChoiceDisplay.innerHTML = compChoice;
+}
+
+function getResults() {
+  if (compChoice === userChoice) result = "It's a draw 0_0!";
+
+  if (compChoice === "Rock" && userChoice === "Paper") result = "You Won:)";
+
+  if (compChoice === "Paper" && userChoice === "Rock") result = "You Lost:(";
+
+  if (compChoice === "Rock" && userChoice === "Scissors") result = "You Lost:(";
+
+  if (compChoice === "Scissors" && userChoice === "Rock") result = "You Won:)";
+
+  if (compChoice === "Paper" && userChoice === "Scissors") result = "You Won:)";
+
+  if (compChoice === "Scissors" && userChoice === "Paper")
+    result = "You Lost:(";
+
+  resultDisplay.innerHTML = result;
 }
